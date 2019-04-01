@@ -33,8 +33,8 @@ export const counterMiddleware = store => next => action => {
 export default function counterReducer(state = 0, action = {}) {
   switch (action.type) {
     case INCREMENT:
-      return state + 1;
+      return state + 1
     default:
-      return state;
+      return state
   }
 }
