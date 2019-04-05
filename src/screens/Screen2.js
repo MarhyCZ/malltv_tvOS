@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 function Screen2 (props) {
   console.log(props)
-  const counter = props.counter
+  const counter = props.counter || 0
 
   return (
     <document>

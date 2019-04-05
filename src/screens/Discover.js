@@ -7,13 +7,10 @@ import { showMessageFactory } from '../helpers/show-message'
 
 import Loader from './Loader'
 import { withAppContext } from '../components/withAppContext'
-import { AppContext } from '../components/state.js'
+import { useStateValue } from '../components/state.js'
 
 const Discover = React.memo((props) => {
-  // const context = props.context
-  // const name = props.name;
-  // const counter = props.counter;
-  //const context = useContext(AppContext)
+  const [{ resumeCount }, dispatch] = useStateValue()
   const [loading, setLoading] = useState(true)
   const [state, setState] = useState({
     'Hero': {
@@ -34,7 +31,7 @@ const Discover = React.memo((props) => {
   )
 
   useEffect(() => {
-    //console.log(context.resumeCount)
+    console.log('discover říká:' + resumeCount)
     async function fetchData () {
       // You can await here
       API.getHome()
@@ -47,7 +44,7 @@ const Discover = React.memo((props) => {
     }
     fetchData()
     console.log('probihafetch')
-  }, []) // Or [] if effect doesn't need props or state
+  }, [resumeCount]) // Or [] if effect doesn't need props or state
 
   if (loading === true) {
     console.log('berfore request')
