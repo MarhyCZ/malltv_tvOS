@@ -158,7 +158,16 @@ function ShowInfo (props) {
   }
   return (
     <document>
-      <stackTemplate style={{ }}>
+      <head>
+        <style>{`
+        .banner {
+          padding-left: 0;
+          padding-top: 0;
+          padding-right: 0;
+        }
+      `}</style>
+      </head>
+      <stackTemplate theme="dark" style={{ }}>
         <background>
           <heroImg src={state.SerieImage} />
         </background>
@@ -172,7 +181,7 @@ function ShowInfo (props) {
           <row>
             <buttonLockup>
               <badge src="resource://button-follow" />
-              <title>Title 1</title>
+              <title>Od nejnovějších</title>
             </buttonLockup>
             <buttonLockup>
               <badge src="resource://button-checkmark" />
@@ -185,6 +194,23 @@ function ShowInfo (props) {
           </row>
         </identityBanner>
         <collectionList>
+          <shelf>
+            <header>
+              <title>Epizody</title>
+            </header>
+            <section>
+              {state.Sections[0].Entities.map(entity => {
+                return (
+                  <lockup key={entity.Title} onSelect={event => TVDML.navigate('play', entity)}>
+                    <img class="overlay" src={entity.ThumbnailUrl} width="320" height="181"/>
+                    <overlay>
+                      <title class="pill">{ entity.Title }</title>
+                    </overlay>
+                  </lockup>
+                )
+              })}
+            </section>
+          </shelf>
           <shelf>
             <header>
               <title>Shelf title</title>

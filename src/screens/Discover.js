@@ -1,16 +1,12 @@
-import PropTypes from 'prop-types'
 import API from '../api/index.js'
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import * as TVDML from 'tvdml'
 import { link } from '../utils'
-import { showMessageFactory } from '../helpers/show-message'
 
 import Loader from './Loader'
-import { withAppContext } from '../components/withAppContext'
-import { useStateValue } from '../components/state.js'
 
 const Discover = React.memo((props) => {
-  const [{ resumeCount }, dispatch] = useStateValue()
+  const [resumed, setResume] = useState(0)
   const [loading, setLoading] = useState(true)
   const [state, setState] = useState({
     'Hero': {
@@ -29,9 +25,14 @@ const Discover = React.memo((props) => {
     }
   }
   )
+  TVDML
+    .subscribe(TVDML.event.RESUME)
+    .pipe(() => {
+      setResume(resumed + 1)
+    })
 
   useEffect(() => {
-    console.log('discover říká:' + resumeCount)
+    console.log('discover říká:' + resumed)
     async function fetchData () {
       // You can await here
       API.getHome()
@@ -44,10 +45,9 @@ const Discover = React.memo((props) => {
     }
     fetchData()
     console.log('probihafetch')
-  }, [resumeCount]) // Or [] if effect doesn't need props or state
+  }, [resumed]) // Or [] if effect doesn't need props or state
 
   if (loading === true) {
-    console.log('berfore request')
     return <Loader />
   }
   return (
@@ -76,7 +76,7 @@ const Discover = React.memo((props) => {
             <section>
               {state.Hero.Entities.map(entity => {
                 return (
-                  <lockup key={entity.Title}>
+                  <lockup key={entity.Title} onSelect={event => TVDML.navigate('showinfo', entity)}>
                     <img src={entity.Carousel} width="1728" height="600" />
                     <title>{entity.Title}</title>
                   </lockup>
@@ -113,22 +113,6 @@ const Discover = React.memo((props) => {
               })}
             </section>
           </shelf>
-          <shelf>
-            <header>
-              <title>Oblíbenci</title>
-            </header>
-            <section>
-              {state.Sections[2].Entities.map(entity => {
-                return (
-                  <monogramLockup>
-                    <monogram src={entity.Logo}/>
-                    <title>{entity.Title}</title>
-                  </monogramLockup>
-                )
-              })}
-
-            </section>
-          </shelf>
           {state.Sections.map(section => {
             return (
               <shelf>
@@ -137,7 +121,15 @@ const Discover = React.memo((props) => {
                 </header>
                 <section>
                   {section.Entities.map(entity => {
-                    let image = entity.Thumbnail || entity.SerieImageUrl
+                    let image = entity.Thumbnail || entity.ThumbnailUrl || entity.SerieImageUrl
+                    if (entity.Logo) {
+                      return (
+                        <monogramLockup>
+                          <monogram src={entity.Logo}/>
+                          <title>{entity.Title}</title>
+                        </monogramLockup>
+                      )
+                    }
                     return (
                       <lockup key={entity.Title} onSelect={event => TVDML.navigate('showinfo', entity)}>
                         <img src={image} width="320" height="180" />
@@ -155,4 +147,4 @@ const Discover = React.memo((props) => {
   )
 })
 
-export default withAppContext(Discover)
+export default Discover

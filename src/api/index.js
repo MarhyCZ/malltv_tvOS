@@ -85,8 +85,12 @@ const getHome = async () => {
   data.Hero.Entities.forEach(entity => {
     entity.Carousel = entity.Thumbnail.replace('desktop', 'homepage-desktop')
   })
-  data.Sections[2].Entities.forEach(entity => {
-    entity.Logo = entity.Logo.replace('mobile', 'desktop')
+  data.Sections.forEach(section => {
+    if (section.Entities[0].Logo) {
+      section.Entities.forEach(entity => {
+        entity.Logo = entity.Logo.replace('mobile', 'desktop')
+      })
+    }
   })
   data.Categories.forEach(category => {
     category.Image = category.Image.replace('mobile', 'desktop')
@@ -101,12 +105,31 @@ const getSerie = async (id) => {
   })
   let data = await mallGet(`Serie?${params.toString()}`)
   data.SerieImage = data.SerieImage.replace('background-mobile', 'background')
+
+  data.Sections.forEach(section => {
+    section.Entities.forEach(entity => {
+      entity.serieEntityId = data.EntityId
+      entity.videoEntityId = entity.EntityId
+    })
+  })
   return data
 }
+
+const getVideo = async (videoEntityId, serieEntityId) => {
+  let params = new URLSearchParams({
+    videoEntityId: videoEntityId,
+    serieEntityId: serieEntityId,
+    playAll: 'false'
+  })
+  let data = await mallGet(`Video?${params.toString()}`)
+  return data
+}
+
 export default {
   refreshToken,
   mallGet,
   getHome,
   getSeries: async () => { mallGet('home') },
-  getSerie
+  getSerie,
+  getVideo
 }

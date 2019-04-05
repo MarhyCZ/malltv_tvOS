@@ -14,6 +14,7 @@ import {
 
 import AppMenu from './components/menu'
 import ShowInfo from './screens/ShowInfo'
+import Player from './components/player'
 
 TVDML
   .subscribe(TVDML.event.LAUNCH)
@@ -56,3 +57,9 @@ TVDML
   .pipe(TVDML.render((payload) => (
     <ShowInfo show={payload.navigation} />
   )))
+
+TVDML
+  .handleRoute('play')
+  .pipe((payload) => {
+    Player.play(payload.navigation)
+  })
