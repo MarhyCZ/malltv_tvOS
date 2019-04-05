@@ -8,7 +8,7 @@ import { showMessageFactory } from '../helpers/show-message'
 import Loader from './Loader'
 import { withAppContext } from '../components/withAppContext'
 
-function ShowInfo (props) {
+function ShowPage (props) {
   // const context = props.context
   // const name = props.name;
   // const counter = props.counter;
@@ -228,4 +228,4 @@ function ShowInfo (props) {
   )
 }
 
-export default ShowInfo
+export default ShowPage

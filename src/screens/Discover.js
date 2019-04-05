@@ -62,7 +62,7 @@ const Discover = React.memo((props) => {
             tv-align:center;
             text-align:center;
           }
-          .overlay {
+          .withOverlay {
             tv-tint-color: linear-gradient(top, 0.00, rgba(0,0,0,0.35), 1.00, rgba(0,0,0,0.5));  
           }
         `}</style>
@@ -76,9 +76,11 @@ const Discover = React.memo((props) => {
             <section>
               {state.Hero.Entities.map(entity => {
                 return (
-                  <lockup key={entity.Title} onSelect={event => TVDML.navigate('showinfo', entity)}>
+                  <lockup class="withOverlay" key={entity.Title} onSelect={event => TVDML.navigate('showpage', entity)}>
                     <img src={entity.Carousel} width="1728" height="600" />
-                    <title>{entity.Title}</title>
+                    <overlay>
+                      <title>{entity.Title}</title>
+                    </overlay>
                   </lockup>
                 )
               })}
@@ -91,7 +93,7 @@ const Discover = React.memo((props) => {
             <section>
               {state.Categories.map(category => {
                 return (
-                  <lockup key={category.Title} onSelect={event => TVDML.navigate('showinfo', category)}>
+                  <lockup key={category.Title} onSelect={event => TVDML.navigate('showpage', category)}>
                     <img class="overlay" src={category.Image} width="350" height="145"/>
                     <overlay>
                       <title class="pill">{ category.Title }</title>
@@ -105,7 +107,7 @@ const Discover = React.memo((props) => {
             <section>
               {state.Hero.Entities.map(entity => {
                 return (
-                  <lockup key={entity.Title} onSelect={event => TVDML.navigate('showinfo', entity)}>
+                  <lockup key={entity.Title} onSelect={event => TVDML.navigate('showpage', entity)}>
                     <img src={entity.Thumbnail} width="250" height="250" />
                     <title>{entity.Title}</title>
                   </lockup>
@@ -122,6 +124,8 @@ const Discover = React.memo((props) => {
                 <section>
                   {section.Entities.map(entity => {
                     let image = entity.Thumbnail || entity.ThumbnailUrl || entity.SerieImageUrl
+                    let imgWidth = entity.ThumbnailUrl ? 320 : 210
+                    let imgHeight = entity.ThumbnailUrl ? 180 : 290
                     if (entity.Logo) {
                       return (
                         <monogramLockup>
@@ -131,8 +135,11 @@ const Discover = React.memo((props) => {
                       )
                     }
                     return (
-                      <lockup key={entity.Title} onSelect={event => TVDML.navigate('showinfo', entity)}>
-                        <img src={image} width="320" height="180" />
+                      <lockup key={entity.Title} onSelect={event => {
+                        section.CardType === 'isVideo' ? TVDML.navigate('play', entity)
+                          : TVDML.navigate('showpage', entity)
+                      }}>
+                        <img src={image} width={imgWidth} height={imgHeight} />
                         <title>{entity.Title}</title>
                       </lockup>
                     )

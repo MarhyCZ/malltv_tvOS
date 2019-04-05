@@ -1,7 +1,8 @@
 import API from '../api/index.js'
 
 const play = (payload) => {
-  API.getVideo(payload.videoEntityId, payload.serieEntityId)
+  let videoEntityId = payload.videoEntityId || payload.EntityId
+  API.getVideo(videoEntityId, payload.serieEntityId)
     .then((data) => {
       console.log(data)
       const player = new Player()

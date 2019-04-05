@@ -13,7 +13,7 @@ import {
 } from './redux/ducks/app'
 
 import AppMenu from './components/menu'
-import ShowInfo from './screens/ShowInfo'
+import ShowPage from './screens/ShowPage'
 import Player from './components/player'
 
 TVDML
@@ -53,9 +53,9 @@ TVDML
   )))
 
 TVDML
-  .handleRoute('showinfo')
+  .handleRoute('showpage')
   .pipe(TVDML.render((payload) => (
-    <ShowInfo show={payload.navigation} />
+    <ShowPage show={payload.navigation} />
   )))
 
 TVDML

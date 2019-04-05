@@ -115,13 +115,14 @@ const getSerie = async (id) => {
   return data
 }
 
-const getVideo = async (videoEntityId, serieEntityId) => {
+const getVideo = async (videoEntityId, serieEntityId = null) => {
   let params = new URLSearchParams({
     videoEntityId: videoEntityId,
-    serieEntityId: serieEntityId,
     playAll: 'false'
   })
+  if (serieEntityId !== null) params.append(serieEntityId, serieEntityId)
   let data = await mallGet(`Video?${params.toString()}`)
+  console.log(data)
   return data
 }
 
