@@ -128,7 +128,7 @@ const Discover = React.memo((props) => {
                     let imgHeight = entity.ThumbnailUrl ? 180 : 290
                     if (entity.Logo) {
                       return (
-                        <monogramLockup>
+                        <monogramLockup onSelect={event => TVDML.navigate('showpage', entity)}>
                           <monogram src={entity.Logo}/>
                           <title>{entity.Title}</title>
                         </monogramLockup>

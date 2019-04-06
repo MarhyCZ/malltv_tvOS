@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import API from '../api/index.js'
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as TVDML from 'tvdml'
 import { link } from '../utils'
 import { showMessageFactory } from '../helpers/show-message'
@@ -136,7 +136,7 @@ function ShowPage (props) {
   }
   )
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     console.log(props)
     // console.log(context)
     async function fetchData () {

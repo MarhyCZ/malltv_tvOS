@@ -109,7 +109,6 @@ const getSerie = async (id) => {
   data.Sections.forEach(section => {
     section.Entities.forEach(entity => {
       entity.serieEntityId = data.EntityId
-      entity.videoEntityId = entity.EntityId
     })
   })
   return data
@@ -126,11 +125,26 @@ const getVideo = async (videoEntityId, serieEntityId = null) => {
   return data
 }
 
+const getSearch = async (searchString) => {
+  let data = await mallGet(`Search/${encodeURI(searchString)}`)
+  // Videa ze stránky "objevujte" se zobrazí, když to nenajde žádný výsledek
+  // Nakonec je nezobrazim jako vysledky
+  // if (data.OtherVideos !== null) {
+  //   let counter = 0
+  //   data.OtherVideos.forEach(section => {
+  //     data[`OtherVideos${counter}`] = section
+  //     counter++
+  //   })
+  // }
+  return data
+}
+
 export default {
   refreshToken,
   mallGet,
   getHome,
   getSeries: async () => { mallGet('home') },
   getSerie,
-  getVideo
+  getVideo,
+  getSearch
 }

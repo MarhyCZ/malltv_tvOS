@@ -14,8 +14,8 @@ function AppMenu (props) {
           <menuItem route='page2' autoHighlight>
             <title>Page2</title>
           </menuItem>
-          <menuItem route='page3'>
-            <title>Page3</title>
+          <menuItem route='searchpage'>
+            <title>Vyhledat</title>
           </menuItem>
         </menuBar>
       </menuBarTemplate>
