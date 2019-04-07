@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 
-import withBaseUrl from '../redux/withBaseUrl';
-
 import tvshows from './Screen3/tvshows';
 
 function Screen3({ baseUrl }) {
@@ -48,4 +46,4 @@ Screen3.propTypes = {
   baseUrl: PropTypes.string.isRequired,
 };
 
-export default withBaseUrl(Screen3);
+export default Screen3;

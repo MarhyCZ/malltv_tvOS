@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 
 import { showMessageFactory } from '../helpers/show-message'
 
-import withCounter from '../redux/withCounter'
 import { connect } from 'react-redux'
 
 function Screen2 (props) {

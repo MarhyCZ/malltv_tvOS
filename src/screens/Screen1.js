@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { link } from '../utils';
 import { showMessageFactory } from '../helpers/show-message';
 
-import withCounter from '../redux/withCounter';
 
 function Screen1(props) {
   const name = props.name;
@@ -46,4 +45,4 @@ Screen1.defaultProps = {
   counter: 0,
 };
 
-export default withCounter(Screen1);
+export default Screen1;

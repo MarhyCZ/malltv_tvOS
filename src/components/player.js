@@ -1,4 +1,4 @@
-import API from '../api/index.js'
+import API from 'api/index.js'
 
 const play = (payload) => {
   let videoEntityId = payload.EntityId

@@ -23,4 +23,4 @@ function AppMenu (props) {
   )
 }
 
-export default withAppContext(AppMenu)
+export default AppMenu
