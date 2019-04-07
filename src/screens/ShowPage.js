@@ -143,9 +143,11 @@ function ShowPage (props) {
       // You can await here
       API.getSerie(props.show.EntityId)
         .then(data => {
-          setState(data)
-          console.log(data)
-          setLoading(false)
+          if (data !== undefined) {
+            setState(data)
+            console.log(data)
+            setLoading(false)
+          }
         })
       // ...
     }

@@ -9,6 +9,7 @@ import AppMenu from './components/menu'
 import ShowPage from './screens/ShowPage'
 import SearchPage from './screens/SearchPage'
 import Player from './components/player'
+import ErrorPage from './screens/ErrorPage'
 
 TVDML
   .subscribe(TVDML.event.LAUNCH)
@@ -51,3 +52,9 @@ TVDML
   .pipe((payload) => {
     Player.play(payload.navigation)
   })
+
+TVDML
+  .handleRoute('errorpage')
+  .pipe(TVDML.render((payload) => (
+    <ErrorPage message={payload.navigation}/>
+  )))
