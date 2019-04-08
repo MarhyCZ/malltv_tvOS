@@ -102,8 +102,7 @@ const getSerie = async (id) => {
     serieEntityId: id,
     page: 0
   })
-  let data = await mallGet(`Serie?serieEntityId=1`).catch(e => { return Promise.reject(e) })
-  // let data = await mallGet(`Serie?${params.toString()}`)
+  let data = await mallGet(`Serie?${params.toString()}`).catch(e => { return Promise.reject(e) })
   data.SerieImage = data.SerieImage.replace('background-mobile', 'background')
 
   data.Sections.forEach(section => {

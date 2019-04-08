@@ -1,57 +1,59 @@
-# TVDML Application boilerplate
+# iVysílání pro tvOS
+Neoficiální klient iVysílání pro Apple TV umožňující sledování videoobsahu veřejnoprávní České televize. Postaven s použitím TVML a [atvjs](https://github.com/emadalam/atvjs) frameworku.
 
-Basic build configuration to begin building Apple TV apps using [TVDML](https://github.com/a-ignatov-parc/tvdml) library.
+Byl bych velice rád, pokud by ČT chtěla aplikaci převzít a udělat z ní aplikaci dostupnou z App Store. Rád bych pomohl všemi silami. Celý kód je zde k dispozici. Proto kdokoliv, komu se tento prototyp líbí, napište na info@ceskatelevize.cz s prosbou, že máte zájem o aplikaci pro Apple TV platformu a klidně přiložte odkaz na tento GitHubový projekt.
 
-## Demo app
+Problémy hlašte v Issues.
 
-Here's a glimpse of what it looks like
+Ukázka aplikace na YouTube: https://youtu.be/2osctVNAr7s <br>
+<img src="docs/img/homescreen.jpg" width="400"> <img src="docs/img/homescreendark.jpg" width="400">
+<img src="docs/img/livechannels.jpg" width="400">
+<img src="docs/img/letter.jpg" width="400">
+<img src="docs/img/episodes.jpg" width="400">
+<img src="docs/img/episodeinfo.jpg" width="400">
+<img src="docs/img/dates.jpg" width="400">
+<img src="docs/img/date.jpg" width="400">
 
-![Main Screen](screenshots/screenshot1.png)
+#### Nově s možností přidat pořad do Oblíbených
+<img src="docs/img/favorite1.jpg" width="400"> <img src="docs/img/favorite2.jpg" width="400">
 
-## Run demo app
+### Jak tedy aplikaci spustit?
+Stačí zkompilovat projekt ve složce native v Xcode a poslat na Apple TV.
 
-To be able to build application you need `node.js` >= 8.9.0 and `yarn` >= 1.3.0.
+Javascriptovou část aplikace hostuji zde na githubu ve složce docs, tedy při případném updatu aplikace postačí vypnout/zapnout aplikaci na Apple TV. Není třeba znovu kompilovat.
 
-> If you are using [nvm](https://github.com/creationix/nvm) there is an `.nvmrc`
+Případně mi můžete poslat soukromou zprávu na fórum http://www.xbmc-kodi.cz/prispevek-apple-tv-ivysilani-pro-tvos a přidám vás do TestFlightu.
 
-To start we need to install all dependencies with `yarn`:
+<hr /> 
 
-```bash
-yarn
+### Struktura projektu
+Projekt je rozdělený do 2 částí
+
+- native: tato složka obsahuje Xcode projekt. Soubor AppDelegate.swift se stará o nastavení TVMLKit frameworku a spuštění JavaScriptové aplikace. Nativní část se měnit nebude, výhoda pro uživatele je tedy, že aplikaci bude muset zkompilovat jen jednou.
+
+- web/app: tato složka obsahuje JavaScript část zdrojových souborů aplikace. Po spuštění `npm run dist` se vytvoří složka web/dist, která v sobě obsahuje zabalenou JS část aplikace. Tato složka běží na webovém serveru a načítá se při každém spuštění aplikace na Apple TV.
+
+### Jak začít s vývojem
+
+Pokud máte nainstalovnaný [nodejs](https://nodejs.org/) a [npm](https://www.npmjs.com/) stačí spustit následující příkazy ve složce s projektem:
+
+```shell
+$ npm run install-deps                   # Spustí yarn, který nainstaluje všechny závislosti z package.json. Také lze použít npm install
 ```
 
-If you don't have globally installed `yarn` you can install all dependencies using local `yarn` installation:
+### Spuštění testovacího webserveru
+Zkompiluje .js aplikaci a spustí výchozí webserver na portu 9001. Server hlídá změny a při každém uložení zdrojového souboru znovu překompiluje aplikaci.
 
-```bash
-npm run install-deps
+```shell
+$ npm run serve                   # Spustí se webpack-dev-server
 ```
 
-Now you need to start webserver to build and serve TVML app:
+### Načtení aplikace z testovacího webserveru
+V Xcode projektu v souboru AppDelegate.swift odkomentujte řádek s proměnnou tvBaseURL, která odkazuje na localhost. např:
 
-```bash
-npm run serve
+```swift
+    // static let tvBaseURL = "https://marhycz.github.io/ivysilani_tvOS/app/"
+    static let tvBaseURL = "http://localhost:9001/"
 ```
 
-> Server will start at [localhost:9001](http://localhost:9001/)
-
-Next step is to open XCode project (`boilerplate.xcodeproj`) located in `xcode` folder and run project with "Play" button at the top left corner or hit <kbd>CMD</kbd> + <kbd>R</kbd>. This will open Apple TV simulator and you'll be able to play around with demo app.
-
-## Build project
-
-In addition to serve application from MemoryFS you can build your application located in `/src` folder:
-
-```bash
-npm run build
-```
-
-> Results will be placed in `/dist` folder.
-
-To build optimized and minified version use:
-
-```bash
-npm run dist
-```
-
-## Additional information
-
-Old build configuration based on `gulp.js` can be found in [`gulp` branch](https://github.com/a-ignatov-parc/tvdml-app-boilerplate/tree/gulp).
+Pak stačí jen projekt spustit a tvOS načte aplikaci z běžícího lokálního webového serveru.
