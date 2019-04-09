@@ -7,6 +7,7 @@ import { showMessageFactory } from '../helpers/show-message'
 
 import Loader from './Loader'
 import { withAppContext } from '../components/withAppContext'
+import EpisodeLockup from '../components/episodeLockup'
 
 function ShowPage (props) {
   // const context = props.context
@@ -167,46 +168,6 @@ function ShowPage (props) {
           padding-top: 0;
           padding-right: 0;
         }
-
-        <!-- Episode mini Card -->
-        .episodeMiniCard {
-            width:800;
-            height:170;
-            border-radius: 12;
-            background-color: rgba(255, 255, 255, 0.7);
-        }
-        .episodeMiniImage {
-            width: 308;
-            height: 308;
-            tv-position: leading;
-        }
-        .episodeMiniTitle {
-            text-align: natural;
-            tv-text-max-lines: 2;
-            tv-position:top;
-            tv-align: leading;
-            margin: 32 30 0;
-            tv-text-style:callout;
-            color: rgba(0, 0, 0, 0.6);
-        }
-        .episodeMiniSubtitle {
-            text-align: natural;
-            tv-text-max-lines: 1;
-            tv-position:top;
-            tv-align: leading;
-            margin: 16 30 0;
-            tv-text-style:subhead;
-            color: rgba(0, 0, 0, 0.4);
-        }
-        .episodeMiniDescription {
-            text-align: natural;
-            tv-text-max-lines: 3;
-            tv-position:top;
-            tv-align: leading;
-            margin: 9 30 0;
-            tv-text-style:caption1;
-            color: rgba(0, 0, 0, 0.4);
-        }
       `}</style>
       </head>
       <stackTemplate theme="dark" style={{ }}>
@@ -250,11 +211,7 @@ function ShowPage (props) {
             <section>
               {state.Sections[0].Entities.map(entity => {
                 return (
-                  <card key={entity.Title} class="episodeMiniCard" onSelect={event => TVDML.navigate('play', entity)}>
-                    <img class="episodeMiniImage" src={entity.ThumbnailUrl} />
-                    <title class="episodeMiniTitle">{ entity.Title }</title>
-                    <subtitle class="episodeMiniSubtitle">{ entity.PublishDate }</subtitle>
-                  </card>
+                  <EpisodeLockup entity={entity} />
                 )
               })}
             </section>
