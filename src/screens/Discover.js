@@ -67,12 +67,12 @@ const Discover = React.memo((props) => {
           .withOverlay {
             tv-tint-color: linear-gradient(top, 0.00, rgba(0,0,0,0.35), 1.00, rgba(0,0,0,0.5));  
           }
+          .categoryOverlay {
+            tv-tint-color: linear-gradient(top, 0.00, rgba(0,0,0,0.7), 1.00, rgba(0,0,0,0.7));  
+          }
         `}</style>
       </head>
       <stackTemplate>
-        <banner>
-          <title></title>
-        </banner>
         <collectionList>
           <carousel>
             <section>
@@ -96,22 +96,10 @@ const Discover = React.memo((props) => {
               {state.Categories.map(category => {
                 return (
                   <lockup key={category.Title} onSelect={event => TVDML.navigate('showpage', category)}>
-                    <img class="overlay" src={category.Image} width="350" height="145"/>
+                    <img class="categoryOverlay" src={category.Image} width="350" height="145"/>
                     <overlay>
                       <title class="pill">{ category.Title }</title>
                     </overlay>
-                  </lockup>
-                )
-              })}
-            </section>
-          </shelf>
-          <shelf>
-            <section>
-              {state.Hero.Entities.map(entity => {
-                return (
-                  <lockup key={entity.Title} onSelect={event => TVDML.navigate('showpage', entity)}>
-                    <img src={entity.Thumbnail} width="250" height="250" />
-                    <title>{entity.Title}</title>
                   </lockup>
                 )
               })}

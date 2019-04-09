@@ -167,16 +167,63 @@ function ShowPage (props) {
           padding-top: 0;
           padding-right: 0;
         }
+
+        <!-- Episode mini Card -->
+        .episodeMiniCard {
+            width:800;
+            height:170;
+            border-radius: 12;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        .episodeMiniImage {
+            width: 308;
+            height: 308;
+            tv-position: leading;
+        }
+        .episodeMiniTitle {
+            text-align: natural;
+            tv-text-max-lines: 2;
+            tv-position:top;
+            tv-align: leading;
+            margin: 32 30 0;
+            tv-text-style:callout;
+            color: rgba(0, 0, 0, 0.6);
+        }
+        .episodeMiniSubtitle {
+            text-align: natural;
+            tv-text-max-lines: 1;
+            tv-position:top;
+            tv-align: leading;
+            margin: 16 30 0;
+            tv-text-style:subhead;
+            color: rgba(0, 0, 0, 0.4);
+        }
+        .episodeMiniDescription {
+            text-align: natural;
+            tv-text-max-lines: 3;
+            tv-position:top;
+            tv-align: leading;
+            margin: 9 30 0;
+            tv-text-style:caption1;
+            color: rgba(0, 0, 0, 0.4);
+        }
       `}</style>
       </head>
       <stackTemplate theme="dark" style={{ }}>
         <background>
-          <heroImg src={state.SerieImage} />
+          <heroImg src={state.SerieImage} width="3840" height="760" />
         </background>
+
+        {/* <background>
+          <img class="blurOverlayImage" src="/resources/images/background/background_2.jpg" />
+        </background>
+        <banner class="blurOverlayBanner">
+          <title style="tv-visual-effect: none; color: rgba(0, 0, 0, 0.6);">Title</title>
+        </banner> */}
         <identityBanner>
           <background>
-            <img src={state.SerieImage} height="380" width="1920"/>
-            <heroImg src={state.SerieImage}/>
+            <img src={state.SerieImage} width="1920"height="375" />
+            <text style={{ 'color': 'rgb(255,255,255)' }}>{state.ShortDescription}</text>
           </background>
           <title>{state.Title}</title>
           <subtitle>{state.Tags}</subtitle>
@@ -196,23 +243,22 @@ function ShowPage (props) {
           </row>
         </identityBanner>
         <collectionList>
-          <shelf>
+          <grid>
             <header>
               <title>Epizody</title>
             </header>
             <section>
               {state.Sections[0].Entities.map(entity => {
                 return (
-                  <lockup key={entity.Title} onSelect={event => TVDML.navigate('play', entity)}>
-                    <img class="overlay" src={entity.ThumbnailUrl} width="320" height="181"/>
-                    <overlay>
-                      <title class="pill">{ entity.Title }</title>
-                    </overlay>
-                  </lockup>
+                  <card key={entity.Title} class="episodeMiniCard" onSelect={event => TVDML.navigate('play', entity)}>
+                    <img class="episodeMiniImage" src={entity.ThumbnailUrl} />
+                    <title class="episodeMiniTitle">{ entity.Title }</title>
+                    <subtitle class="episodeMiniSubtitle">{ entity.PublishDate }</subtitle>
+                  </card>
                 )
               })}
             </section>
-          </shelf>
+          </grid>
           <shelf>
             <header>
               <title>Shelf title</title>
