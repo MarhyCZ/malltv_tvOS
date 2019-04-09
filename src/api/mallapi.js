@@ -22,6 +22,8 @@ const postRequestConfig = () => ({
   })
 })
 
+const getToken = () => sessionStorage.getItem('token') || refreshToken()
+
 const refreshToken = () => {
   let body = new URLSearchParams({
     'grant_type': 'client_credentials',
@@ -36,12 +38,13 @@ const refreshToken = () => {
   xhr.send(body.toString())
   if (xhr.status === 200) {
     console.log(xhr.response)
+    sessionStorage.setItem('token', xhr.response.access_token)
     return xhr.response.access_token
   }
 }
 
 const requestConfig = async () => {
-  let token = await refreshToken()
+  let token = await getToken()
   return {
     headers: {
       'Accept': 'application/json',
@@ -59,7 +62,7 @@ const handleErrors = (response) => {
 }
 
 const mallGet = (url) => {
-  let token = refreshToken()
+  let token = getToken()
 
   return new Promise(function (resolve, reject) {
     let xhr = new XMLHttpRequest()
@@ -96,7 +99,6 @@ const getHome = async () => {
   })
   return data
 }
-
 const getSerie = async (id) => {
   let params = new URLSearchParams({
     serieEntityId: id,

@@ -11,11 +11,19 @@ import SearchPage from './screens/SearchPage'
 import Player from './components/player'
 import ErrorPage from './screens/ErrorPage'
 
+import API from './api'
+
 TVDML
   .subscribe(TVDML.event.LAUNCH)
   .pipe(TVDML.render(() => (
     <AppMenu />
   )))
+
+TVDML
+  .subscribe(TVDML.event.RESUME)
+  .pipe(() => {
+    API.refreshToken()
+  })
 
 TVDML
   .handleRoute('discover')
