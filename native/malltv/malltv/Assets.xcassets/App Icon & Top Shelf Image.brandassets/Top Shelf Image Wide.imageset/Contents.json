@@ -2,10 +2,12 @@
   "images" : [
     {
       "idiom" : "tv",
+      "filename" : "topshelf-1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "tv",
+      "filename" : "topshelf.png",
       "scale" : "2x"
     },
     {
