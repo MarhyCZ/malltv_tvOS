@@ -5,10 +5,10 @@ Aplikace bude vyvíjena dokud Mall.TV nepřijde se svoji oficiální verzí pro 
 
 Problémy hlašte v Issues.
 
-<img src="docs/img/malltv_homepage_light.jpg" width="400"> <img src="docs/img/malltv_homepage_dark.jpg" width="400">
-<img src="docs/img/malltv_search.jpg" width="400">
-<img src="docs/img/malltv_channel.jpg" width="400">
-<img src="docs/img/malltv_show.jpg" width="400">
+<img src="img/malltv_homepage_light.jpg" width="400"> <img src="img/malltv_homepage_dark.jpg" width="400">
+<img src="img/malltv_search.jpg" width="400">
+<img src="img/malltv_channel.jpg" width="400">
+<img src="img/malltv_show.jpg" width="400">
 
 ### Jak tedy aplikaci spustit?
 Stačí zkompilovat projekt ve složce native v Xcode a poslat na Apple TV.
