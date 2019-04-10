@@ -1,28 +1,21 @@
-# iVysílání pro tvOS
-Neoficiální klient iVysílání pro Apple TV umožňující sledování videoobsahu veřejnoprávní České televize. Postaven s použitím TVML a [atvjs](https://github.com/emadalam/atvjs) frameworku.
+# Mall.TV pro tvOS
+Neoficiální klient Mall.TV pro Apple TV umožňující sledování videoobsahu veřejně přístupné internetové televize Mall.TV. Postaven s použitím React a [tvdml](https://github.com/a-ignatov-parc/tvdml) frameworku.
 
-Byl bych velice rád, pokud by ČT chtěla aplikaci převzít a udělat z ní aplikaci dostupnou z App Store. Rád bych pomohl všemi silami. Celý kód je zde k dispozici. Proto kdokoliv, komu se tento prototyp líbí, napište na info@ceskatelevize.cz s prosbou, že máte zájem o aplikaci pro Apple TV platformu a klidně přiložte odkaz na tento GitHubový projekt.
+Aplikace bude vyvíjena dokud Mall.TV nepřijde se svoji oficiální verzí pro Apple TV. Cílem tohoto projektu je ukázat jednoduchost tvorby aplikací pro tvOS ve snaze přinést na platformu české aplikace a český obsah. Vítám Mall.TV pokud by chtěla použít jakoukoliv část kódu, uzná-li za vhodné.
 
 Problémy hlašte v Issues.
 
-Ukázka aplikace na YouTube: https://youtu.be/2osctVNAr7s <br>
-<img src="docs/img/homescreen.jpg" width="400"> <img src="docs/img/homescreendark.jpg" width="400">
-<img src="docs/img/livechannels.jpg" width="400">
-<img src="docs/img/letter.jpg" width="400">
-<img src="docs/img/episodes.jpg" width="400">
-<img src="docs/img/episodeinfo.jpg" width="400">
-<img src="docs/img/dates.jpg" width="400">
-<img src="docs/img/date.jpg" width="400">
-
-#### Nově s možností přidat pořad do Oblíbených
-<img src="docs/img/favorite1.jpg" width="400"> <img src="docs/img/favorite2.jpg" width="400">
+<img src="docs/img/malltv_homepage_light.jpg" width="400"> <img src="docs/img/malltv_homepage_dark.jpg" width="400">
+<img src="docs/img/malltv_search.jpg" width="400">
+<img src="docs/img/malltv_channel.jpg" width="400">
+<img src="docs/img/malltv_show.jpg" width="400">
 
 ### Jak tedy aplikaci spustit?
 Stačí zkompilovat projekt ve složce native v Xcode a poslat na Apple TV.
 
 Javascriptovou část aplikace hostuji zde na githubu ve složce docs, tedy při případném updatu aplikace postačí vypnout/zapnout aplikaci na Apple TV. Není třeba znovu kompilovat.
 
-Případně mi můžete poslat soukromou zprávu na fórum http://www.xbmc-kodi.cz/prispevek-apple-tv-ivysilani-pro-tvos a přidám vás do TestFlightu.
+Případně mi můžete poslat soukromou zprávu na fórum http://www.xbmc-kodi.cz/prispevek-apple-tv-malltv-pro-tvos nebo do facebookové skupiny Apple TV CZ/SK a přidám vás rád do TestFlightu.
 
 <hr /> 
 
@@ -31,14 +24,14 @@ Projekt je rozdělený do 2 částí
 
 - native: tato složka obsahuje Xcode projekt. Soubor AppDelegate.swift se stará o nastavení TVMLKit frameworku a spuštění JavaScriptové aplikace. Nativní část se měnit nebude, výhoda pro uživatele je tedy, že aplikaci bude muset zkompilovat jen jednou.
 
-- web/app: tato složka obsahuje JavaScript část zdrojových souborů aplikace. Po spuštění `npm run dist` se vytvoří složka web/dist, která v sobě obsahuje zabalenou JS část aplikace. Tato složka běží na webovém serveru a načítá se při každém spuštění aplikace na Apple TV.
+- src: tato složka obsahuje JavaScript část zdrojových souborů aplikace. Po spuštění `npm run dist` se vytvoří složka dist, která v sobě obsahuje zabalenou JS část aplikace. Tato složka běží na webovém serveru a načítá se při každém spuštění aplikace na Apple TV.
 
 ### Jak začít s vývojem
 
 Pokud máte nainstalovnaný [nodejs](https://nodejs.org/) a [npm](https://www.npmjs.com/) stačí spustit následující příkazy ve složce s projektem:
 
 ```shell
-$ npm run install-deps                   # Spustí yarn, který nainstaluje všechny závislosti z package.json. Také lze použít npm install
+$ npm install                  # nainstaluje všechny závislosti z package.json
 ```
 
 ### Spuštění testovacího webserveru

@@ -2,8 +2,6 @@ import PropTypes from 'prop-types'
 
 import { showMessageFactory } from '../helpers/show-message'
 
-import { connect } from 'react-redux'
-
 function Screen2 (props) {
   console.log(props)
   const counter = props.counter || 0
@@ -12,7 +10,7 @@ function Screen2 (props) {
     <document>
       <alertTemplate>
         <title style={{ tvTextStyle: 'title1' }}>💃</title>
-        <text>And here is a global counter!</text>
+        <text>Ono to umi i emojis</text>
         <text style={{ tvTextStyle: 'title2' }}>
           {props.counter}
         </text>

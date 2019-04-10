@@ -17,7 +17,7 @@ export function withAppContext (Component) {
   return function WrapperComponent (props) {
     return (
       <StateProvider>
-          <Component {...props} />
+        <Component {...props} />
       </StateProvider>
     )
   }
