@@ -8,11 +8,8 @@ function AppMenu (props) {
     <document>
       <menuBarTemplate>
         <menuBar>
-          <menuItem route='discover'>
+          <menuItem route='discover' autoHighlight>
             <title>Objevujte</title>
-          </menuItem>
-          <menuItem route='page2' autoHighlight>
-            <title>Page2</title>
           </menuItem>
           <menuItem route='searchpage'>
             <title>Vyhledat</title>

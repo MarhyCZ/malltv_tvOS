@@ -4,6 +4,7 @@ import * as TVDML from 'tvdml'
 import { link } from '../utils'
 
 import Loader from './Loader'
+import EntityLockup from '../components/entityLockup'
 
 const Discover = React.memo((props) => {
   const [resumed, setResume] = useState(0)
@@ -113,25 +114,8 @@ const Discover = React.memo((props) => {
                 </header>
                 <section>
                   {section.Entities.map(entity => {
-                    let image = entity.Thumbnail || entity.ThumbnailUrl || entity.SerieImageUrl
-                    let imgWidth = entity.ThumbnailUrl ? 320 : 210
-                    let imgHeight = entity.ThumbnailUrl ? 180 : 290
-                    if (entity.Logo) {
-                      return (
-                        <monogramLockup onSelect={event => TVDML.navigate('showpage', entity)}>
-                          <monogram src={entity.Logo}/>
-                          <title>{entity.Title}</title>
-                        </monogramLockup>
-                      )
-                    }
                     return (
-                      <lockup key={entity.Title} onSelect={event => {
-                        section.CardType === 'isVideo' ? TVDML.navigate('play', entity)
-                          : TVDML.navigate('showpage', entity)
-                      }}>
-                        <img src={image} width={imgWidth} height={imgHeight} />
-                        <title>{entity.Title}</title>
-                      </lockup>
+                      <EntityLockup entity={entity} section={section} />
                     )
                   })}
                 </section>
