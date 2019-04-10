@@ -1,12 +1,10 @@
 import * as TVDML from 'tvdml'
 
-import Screen1 from './screens/Screen1'
-import Screen2 from './screens/Screen2'
-import Screen3 from './screens/Screen3'
 import Discover from './screens/Discover'
 
 import AppMenu from './components/menu'
 import ShowPage from './screens/ShowPage'
+import ChannelPage from './screens/ChannelPage'
 import SearchPage from './screens/SearchPage'
 import Player from './components/player'
 import ErrorPage from './screens/ErrorPage'
@@ -32,21 +30,15 @@ TVDML
   )))
 
 TVDML
-  .handleRoute('page2')
-  .pipe(TVDML.render(() => (
-    <Screen2 />
-  )))
-
-TVDML
-  .handleRoute('page3')
-  .pipe(TVDML.render(() => (
-    <Screen3 />
-  )))
-
-TVDML
   .handleRoute('showpage')
   .pipe(TVDML.render((payload) => (
     <ShowPage show={payload.navigation} />
+  )))
+
+TVDML
+  .handleRoute('channelpage')
+  .pipe(TVDML.render((payload) => (
+    <ChannelPage channel={payload.navigation} />
   )))
 
 TVDML

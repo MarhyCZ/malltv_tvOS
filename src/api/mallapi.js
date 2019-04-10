@@ -1,5 +1,5 @@
 // import qs from 'qs';
-import axios from 'axios'
+import he from 'he'
 import 'url-search-params-polyfill'
 
 // Defining base options
@@ -14,6 +14,12 @@ const toQueryString = obj => (
     return `${encodeURIComponent(k)}=${encodeURIComponent(v)}`
   })
 ).join('&')
+
+const cleanText = (string) => {
+  let stripHTML = string.replace(/<\/?[^>]+(>|$)/g, "")
+  let utf8 = he.decode(stripHTML)
+  return utf8
+}
 
 const postRequestConfig = () => ({
   headers: new Headers({
@@ -114,6 +120,18 @@ const getSerie = async (id) => {
   })
   return data
 }
+const getChannel = async (id) => {
+  let params = new URLSearchParams({
+    channelEntityId: id,
+    page: 0,
+    sortType: 1
+  })
+  let data = await mallGet(`Channel?${params.toString()}`).catch(e => { return Promise.reject(e) })
+
+  data.Hero = data.Hero.replace('hero-mobile', 'hero')
+  data.Description = cleanText(data.Description)
+  return data
+}
 
 const getVideo = async (videoEntityId, serieEntityId = null) => {
   let params = new URLSearchParams({
@@ -146,6 +164,7 @@ export default {
   getHome,
   getSeries: async () => { mallGet('home') },
   getSerie,
+  getChannel,
   getVideo,
   getSearch
 }

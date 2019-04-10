@@ -6,6 +6,7 @@ import { link } from '../utils'
 import { showMessageFactory } from '../helpers/show-message'
 
 import Loader from './Loader'
+import EntityLockup from '../components/entityLockup'
 
 function SearchPage (props) {
   // const context = props.context
@@ -26,11 +27,15 @@ function SearchPage (props) {
   }, []) // Or [] if effect doesn't need props or state
 
   const updateResults = (searchString) => {
-    API.getSearch(searchString)
-      .then(data => {
-        console.log(data)
-        setState(data)
-      })
+    if (searchString !== '') {
+      API.getSearch(searchString)
+        .then(data => {
+          console.log(data)
+          setState(data)
+        })
+    } else {
+      setState({})
+    }
   }
   return (
     <document>
@@ -50,25 +55,8 @@ function SearchPage (props) {
                 </header>
                 <section>
                   {section.Entities.map(entity => {
-                    let image = entity.Thumbnail || entity.ThumbnailUrl || entity.SerieImageUrl
-                    let imgWidth = entity.ThumbnailUrl ? 320 : 210
-                    let imgHeight = entity.ThumbnailUrl ? 180 : 290
-                    if (entity.Logo) {
-                      return (
-                        <monogramLockup onSelect={event => TVDML.navigate('showpage', entity)}>
-                          <monogram src={entity.Logo}/>
-                          <title>{entity.Title}</title>
-                        </monogramLockup>
-                      )
-                    }
                     return (
-                      <lockup key={entity.Title} onSelect={event => {
-                        section.CardType === 'isVideo' ? TVDML.navigate('play', entity)
-                          : TVDML.navigate('showpage', entity)
-                      }}>
-                        <img src={image} width={imgWidth} height={imgHeight} />
-                        <title>{entity.Title}</title>
-                      </lockup>
+                      <EntityLockup entity={entity} section={section} />
                     )
                   })}
                 </section>

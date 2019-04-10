@@ -36,8 +36,8 @@
   "homepage": "https://github.com/a-ignatov-parc/tvdml-app-boilerplate#readme",
   "dependencies": {
     "@babel/runtime": "^7.4.2",
-    "axios": "^0.18.0",
     "file-loader": "^3.0.1",
+    "he": "^1.2.0",
     "prop-types": "^15.7.2",
     "react": "16.8.5",
     "react-redux": "^6.0.1",
