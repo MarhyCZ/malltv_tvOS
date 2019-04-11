@@ -9,7 +9,7 @@ import Loader from './Loader'
 import { withAppContext } from '../components/withAppContext'
 import EpisodeLockup from '../components/episodeLockup'
 
-function ShowPage (props) {
+function SeriePage (props) {
   // const context = props.context
   // const name = props.name;
   // const counter = props.counter;
@@ -216,21 +216,10 @@ function ShowPage (props) {
               })}
             </section>
           </grid>
-          <shelf>
-            <header>
-              <title>Shelf title</title>
-            </header>
-            <section>
-              <lockup>
-                <img src="" width="308" height="308" />
-                <title>Title 1</title>
-              </lockup>
-            </section>
-          </shelf>
         </collectionList>
       </stackTemplate>
     </document>
   )
 }
 
-export default ShowPage
+export default SeriePage

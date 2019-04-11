@@ -1,4 +1,19 @@
 import * as TVDML from 'tvdml'
+import PropTypes from 'prop-types'
+
+const style = (props) => {
+  if (props.options.highlight === true) {
+    return {
+      'tv-text-highlight-style': 'show-on-highlight'
+    }
+  } else {
+    return {}
+  }
+}
+const navigate = (props) => {
+  props.section.CardType === 'isVideo' ? TVDML.navigate('play', props.entity)
+    : TVDML.navigate('seriepage', props.entity)
+}
 
 function EntityLockup (props) {
   let image = props.entity.Thumbnail || props.entity.ThumbnailUrl || props.entity.SerieImageUrl
@@ -13,14 +28,17 @@ function EntityLockup (props) {
     )
   }
   return (
-    <lockup key={props.entity.Title} onSelect={event => {
-      props.section.CardType === 'isVideo' ? TVDML.navigate('play', props.entity)
-        : TVDML.navigate('showpage', props.entity)
-    }}>
+    <lockup key={props.entity.Title} onSelect={event => { navigate(props) }}>
       <img src={image} width={imgWidth} height={imgHeight} />
-      <title>{props.entity.Title}</title>
+      <title style={style(props)}>{props.entity.Title}</title>
     </lockup>
   )
+}
+
+EntityLockup.defaultProps = {
+  options: {
+    highlight: true
+  }
 }
 
 export default EntityLockup

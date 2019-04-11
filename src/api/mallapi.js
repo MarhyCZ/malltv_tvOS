@@ -119,6 +119,23 @@ const getSerie = async (id) => {
   })
   return data
 }
+const getSeries = async (id = null) => {
+  let params = new URLSearchParams({
+    page: 0,
+    entitiesPerPage: 30
+  })
+  if (id !== null) { params.append('categoryId', id) }
+  let data = await mallGet(`Series?${params.toString()}`).catch(e => { return Promise.reject(e) })
+
+  // Prasacky hack nez udelam infinity scrolling
+  let pageCount = data.TotalEntities / data.EntitiesPerPage
+  for (let number = 1; number < pageCount; number++) {
+    params.set('page', number)
+    let additionalData = await mallGet(`Series?${params.toString()}`).catch(e => { return Promise.reject(e) })
+    data.Entities = [...data.Entities, ...additionalData.Entities]
+  }
+  return data
+}
 const getChannel = async (id) => {
   let params = new URLSearchParams({
     channelEntityId: id,
@@ -137,7 +154,7 @@ const getVideo = async (videoEntityId, serieEntityId = null) => {
     videoEntityId: videoEntityId,
     playAll: 'false'
   })
-  if (serieEntityId !== null) params.append(serieEntityId, serieEntityId)
+  if (serieEntityId !== null) params.append('serieEntityId', serieEntityId)
   let data = await mallGet(`Video?${params.toString()}`).catch(e => { return Promise.reject(e) })
   console.log(data)
   return data
@@ -161,7 +178,8 @@ export default {
   refreshToken,
   mallGet,
   getHome,
-  getSeries: async () => { mallGet('home') },
+  // getSeries: async () => mallGet('Series'),
+  getSeries,
   getSerie,
   getChannel,
   getVideo,

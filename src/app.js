@@ -3,11 +3,12 @@ import * as TVDML from 'tvdml'
 import Discover from './screens/Discover'
 
 import AppMenu from './components/menu'
-import ShowPage from './screens/ShowPage'
+import SeriePage from './screens/SeriePage'
 import ChannelPage from './screens/ChannelPage'
 import SearchPage from './screens/SearchPage'
 import Player from './components/player'
 import ErrorPage from './screens/ErrorPage'
+import SeriesListPage from './screens/SeriesListPage'
 
 import API from './api'
 
@@ -30,9 +31,15 @@ TVDML
   )))
 
 TVDML
-  .handleRoute('showpage')
+  .handleRoute('serieslistpage')
   .pipe(TVDML.render((payload) => (
-    <ShowPage show={payload.navigation} />
+    <SeriesListPage category={payload.navigation}/>
+  )))
+
+TVDML
+  .handleRoute('seriepage')
+  .pipe(TVDML.render((payload) => (
+    <SeriePage show={payload.navigation} />
   )))
 
 TVDML

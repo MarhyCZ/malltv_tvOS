@@ -11,6 +11,9 @@ function AppMenu (props) {
           <menuItem route='discover' autoHighlight>
             <title>Objevujte</title>
           </menuItem>
+          <menuItem route='serieslistpage'>
+            <title>Pořady</title>
+          </menuItem>
           <menuItem route='searchpage'>
             <title>Vyhledat</title>
           </menuItem>

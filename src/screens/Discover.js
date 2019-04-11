@@ -78,7 +78,7 @@ const Discover = React.memo((props) => {
             <section>
               {state.Hero.Entities.map(entity => {
                 return (
-                  <lockup class="withOverlay" key={entity.Title} onSelect={event => TVDML.navigate('showpage', entity)}>
+                  <lockup class="withOverlay" key={entity.Title} onSelect={event => TVDML.navigate('seriepage', entity)}>
                     <img src={entity.Carousel} width="1728" height="600" />
                     <overlay>
                       <title>{entity.Title}</title>
@@ -95,7 +95,7 @@ const Discover = React.memo((props) => {
             <section>
               {state.Categories.map(category => {
                 return (
-                  <lockup key={category.Title} onSelect={event => TVDML.navigate('showpage', category)}>
+                  <lockup key={category.Title} onSelect={event => TVDML.navigate('serieslistpage', category)}>
                     <img class="categoryOverlay" src={category.Image} width="350" height="145"/>
                     <overlay>
                       <title class="pill">{ category.Title }</title>
@@ -114,7 +114,7 @@ const Discover = React.memo((props) => {
                 <section>
                   {section.Entities.map(entity => {
                     return (
-                      <EntityLockup entity={entity} section={section} />
+                      <EntityLockup entity={entity} section={section} options={{ 'highlight': 'false' }}/>
                     )
                   })}
                 </section>
