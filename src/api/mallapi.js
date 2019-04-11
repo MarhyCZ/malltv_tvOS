@@ -1,5 +1,5 @@
 // import qs from 'qs';
-import he from 'he'
+import DataUtils from './mallUtils'
 import 'url-search-params-polyfill'
 
 // Defining base options
@@ -14,12 +14,6 @@ const toQueryString = obj => (
     return `${encodeURIComponent(k)}=${encodeURIComponent(v)}`
   })
 ).join('&')
-
-const cleanText = (string) => {
-  let stripHTML = string.replace(/<\/?[^>]+(>|$)/g, "")
-  let utf8 = he.decode(stripHTML)
-  return utf8
-}
 
 const postRequestConfig = () => ({
   headers: new Headers({
@@ -99,6 +93,11 @@ const getHome = async () => {
         entity.Logo = entity.Logo.replace('mobile', 'desktop')
       })
     }
+    if (section.Entities[0].ThumbnailUrl) {
+      section.Entities.forEach(entity => {
+        entity.ThumbnailUrl = entity.ThumbnailUrl.replace('standart.jpg', 'retina.jpg')
+      })
+    }
   })
   data.Categories.forEach(category => {
     category.Image = category.Image.replace('mobile', 'desktop')
@@ -129,7 +128,7 @@ const getChannel = async (id) => {
   let data = await mallGet(`Channel?${params.toString()}`).catch(e => { return Promise.reject(e) })
 
   data.Hero = data.Hero.replace('hero-mobile', 'hero')
-  data.Description = cleanText(data.Description)
+  data.Description = DataUtils.cleanText(data.Description)
   return data
 }
 

@@ -1,7 +1,6 @@
 import API from '../api/index.js'
 import React, { useState, useEffect } from 'react'
 import * as TVDML from 'tvdml'
-import { link } from '../utils'
 
 import Loader from './Loader'
 import EntityLockup from '../components/entityLockup'

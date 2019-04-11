@@ -7,7 +7,14 @@ const play = (payload) => {
       console.log(data)
       const player = new Player()
       const tvosPlaylist = new Playlist()
-      const mediaItem = new MediaItem('video', data.Resolutions.slice(-1)[0].ResolutionUrl)
+
+      let url
+      if (data.Resolutions.length === 0) {
+        url = `${data.VideoSource}.m3u8`
+      } else {
+        url = data.Resolutions.slice(-1)[0].ResolutionUrl
+      }
+      const mediaItem = new MediaItem('video', url)
       mediaItem.artworkImageURL = data.ThumbnailUrl
       mediaItem.title = data.Title
       tvosPlaylist.push(mediaItem)

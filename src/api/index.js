@@ -1,4 +1,4 @@
-import API from './mallapi'
+import API from './mallApi'
 import * as TVDML from 'tvdml'
 import ErrorPage from 'screens/ErrorPage'
 
